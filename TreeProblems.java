@@ -1,6 +1,6 @@
 /*
- * *** YOUR NAME GOES HERE / YOUR SECTION NUMBER ***
- *
+* *** NAME: Fareen Samad / SECTION: COMP 272-001 *** *
+
  * This java file contains several simple tree problems that need to be
  * codified. These routines  must use the TreeMap and TreeSet library
  * classes from the Java Collection Framework.
@@ -13,7 +13,7 @@ public class TreeProblems {
 
   /**
    * Method different()
-   *
+   * 
    * Given two TreeSets of integers, return a TreeSet containing all elements 
    * that are NOT in both sets. In other words, return a TreeSet of all the
    * elements that are in one set but not the other.
@@ -21,14 +21,22 @@ public class TreeProblems {
   
   public static Set<Integer> different(Set<Integer> setA, Set<Integer> setB) {
 
-    // INSERT CODE HERE - DO NOT FORGET TO PLACE YOUR NAME ABOVE
-    //
-    // This can be done numerous ways, but once such will only that
-    // *several* lines of code. Hint: create two temporary TreeSets and utilize the
-    // methods retainAll(), addAll(), and removeAll(). But in the end, get something to work.
+    if (setA == null || setB == null) {
+      return null; // if either sets are empty, return null 
+    }
 
-    return setA;
-  }
+    Set<Integer> newTree1 = new TreeSet<Integer>(setA); // new tree set for setA
+    Set<Integer> newTree2 = new TreeSet<Integer>(setB); // new tree set for setB
+
+    newTree1.removeAll(setB); // remove setB elements from setA
+    newTree2.removeAll(setA); // remove setA elements from setB
+
+    Set<Integer> result = new TreeSet<Integer>(newTree1); // tree set for the result
+    result.addAll(newTree2); // add elements from newTree2 to result
+
+    return result; // provide result 
+
+  } // end different method 
 
 
   /**
@@ -40,10 +48,19 @@ public class TreeProblems {
 
   public static void removeEven(Map<Integer, String> treeMap) {
 
-    // INSERT CODE HERE.
+    if (treeMap == null) {
+      return; // if treeMap is null, return 
+    }
 
-    return;
-  }
+    Set<Integer> keys = new HashSet<Integer>(treeMap.keySet()); // create a set of keys
+
+    for (Integer key : keys) { // go through each key in the set
+      if (key % 2 == 0) {
+        treeMap.remove(key); // if key is even, remove it
+      } 
+    } 
+
+  } // end removeEven method
 
 
   /**
@@ -55,10 +72,26 @@ public class TreeProblems {
 
   public boolean treesEqual(Map<Integer, String> tree1,Map<Integer, String> tree2 ) {
 
-    // INSERT CODE HERE
+    if (tree1 == null || tree2 == null) {
+      return false; // if any of the trees are null, return false
+    }
 
-    return false;
+    if (tree1.size() != tree2.size()) {
+      return false; // if either of the two trees have different sizes, return false
+    }
 
-  }
+    for (Integer key : tree1.keySet()) {
+      if (!tree2.containsKey(key)) {
+        return false; // if key isnt in tree2, return false
+      }
+
+      if (!tree1.get(key).equals(tree2.get(key))) {
+        return false; // if values arent equal, return false
+      }
+    } 
+
+    return true; // if all are correct, return true
+
+  } // end treesEqual method 
 
 } // end treeProblems class
